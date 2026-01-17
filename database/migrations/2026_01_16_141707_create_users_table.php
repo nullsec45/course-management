@@ -18,7 +18,7 @@ return new class extends Migration
             $table->enum('role', ['Admin', 'Author', 'Non Membership', 'Membership'])->default('Non Membership');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->foreignUuid('membership_id')->nullable()->constrained('memberships')->onDelete('cascade');
+            $table->foreignUuid('membership_id')->nullable()->constrained('memberships')->onDelete('cascade');  
             $table->rememberToken();
             $table->timestamps();
         });
