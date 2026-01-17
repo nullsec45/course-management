@@ -28,18 +28,21 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default function AuthenticatedLayout({ user, children }) {
     const { url } = usePage();
-
-    const navItems = [
-        ...(user.role === 'ADMIN' ? [
+    
+    const navItems = user.role === 'Admin' 
+        ? [
             { href: "/dashboard", icon: Home, label: "Dashboard" },
+            { href: "/dashboard/memberships", icon: User, label: "Tipe Membership" }, // Tambahan
+            { href: "/dashboard/categories", icon: BarChart, label: "Category" }, // Tambahan
+            { href: "/dashboard/videos", icon: Megaphone, label: "Video" }, // Tambahan
+            { href: "/dashboard/articles", icon: FileText, label: "Article" }, // Tambahan
             { href: "/dashboard/users", icon: Users, label: "Daftar Pengguna" }
-        ] : []),
-        { href: "/dashboard/reports", icon: FileText, label: "Daftar Aduan" },
-    ];
-
-    if(user.role !== 'ADMIN') {
-        navItems.slice(1);
-    }
+          ]
+        : [
+            { href: "/dashboard", icon: Home, label: "Dashboard" },
+            { href: "/dashboard/videos", icon: Megaphone, label: "Video" },
+            { href: "/dashboard/articles", icon: FileText, label: "Article" },
+          ];
 
 
     return (
@@ -47,8 +50,10 @@ export default function AuthenticatedLayout({ user, children }) {
             <aside className="hidden md:flex w-80 flex-col  border-r bg-background">
                 <div className="flex h-16 items-center border-b px-6">
                     <Link href="/" className="flex items-center gap-2 font-semibold">
-                        <Megaphone className="h-6 w-6 text-primary" />
-                        <span className="font-headline">AspirasiKu</span>
+                        <img 
+                            src="https://www.astronacci.com/images/2019/logo-navbar-header.png" 
+                            alt="Logo" 
+                            className="h-8 w-auto object-contain"/> 
                     </Link>
                 </div>
                 <nav className="flex-1 flex flex-col gap-1 p-4">
@@ -92,8 +97,10 @@ export default function AuthenticatedLayout({ user, children }) {
                                 href="#"
                                 className="flex items-center gap-2 text-lg font-semibold mb-4"
                             >
-                                <Megaphone className="h-6 w-6 text-primary" />
-                                <span className="sr-only">AspirasiKu</span>
+                                 <img 
+                                src="https://www.astronacci.com/images/2019/logo-navbar-header.png" 
+                                alt="Logo" 
+                                className="h-8 w-auto object-contain"/> 
                             </Link>
                             {navItems.map(item => {
                                 const isActive = item.href === "/dashboard"  ? url === "/dashboard" : url.startsWith(item.href);
