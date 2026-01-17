@@ -28,6 +28,11 @@ class Video extends Model
     protected $keyType = 'string';
     public $incrementing = false;
 
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
+
     protected static function boot()
     {
         parent::boot();
