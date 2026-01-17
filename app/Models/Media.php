@@ -22,6 +22,7 @@ class Media extends Model
         'mime_type',
         'disk',
         'size',
+        'path'
     ];
 
     public function getOriginalUrlAttribute()
