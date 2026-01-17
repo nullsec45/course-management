@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -36,6 +37,8 @@ class CategoryController extends Controller
 
         try {
             $data = $request->validated();
+            $data['slug'] = Str::slug($request->name);
+
 
             Category::create($data);
 
