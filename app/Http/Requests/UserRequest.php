@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules;
+use App\Models\User;
+
 
 class UserRequest extends FormRequest
 {
@@ -22,7 +25,11 @@ class UserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'password' => ['required', Rules\Password::defaults()],
+            'role' => 'required|in:Admin,Author,Membership,Non Membership',
+            'membership_id' => 'nullable|exists:memberships,id',
         ];
     }
 }

@@ -51,14 +51,13 @@ class User extends Authenticatable
         ];
     }
 
-    protected static function booted()
+    public function membership()
     {
-        parent::boot();
+        return $this->belongsTo(Membership::class, 'membership_id');
+    }
 
-        static::creating(function ($model) {
-            if (empty($model->{$model->getKeyName()})) {
-                $model->{$model->getKeyName()} = (string) \Illuminate\Support\Str::uuid();
-            }
-        });
+    public function socialAccounts()
+    {
+        return $this->hasMany(SocialAccount::class);
     }
 }
