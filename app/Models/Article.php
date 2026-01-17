@@ -28,8 +28,18 @@ class Article extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author', 'id');
+    }
+
     protected $keyType = 'string';
     public $incrementing = false;
+
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
 
     protected static function boot()
     {
@@ -38,10 +48,6 @@ class Article extends Model
         static::creating(function ($model) {
             if (empty($model->{$model->getKeyName()})) {
                 $model->{$model->getKeyName()} = (string) \Illuminate\Support\Str::uuid();
-            }
-
-            if (empty($model->id)) {
-                $model->id = (string) Str::uuid();
             }
         });
     }
