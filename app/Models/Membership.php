@@ -19,8 +19,13 @@ class Membership extends Model
     protected $fillable = [
         'type',
         'price',
-        'duration_in_days',
         'article_limit',
         'video_limit',
+        'description'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class, 'membership_id');
+    }
 }
