@@ -51,7 +51,7 @@ class UserController extends Controller
             'membership_id' => NULL,
         ]);
 
-        return redirect()->route('users.index')->with('message', 'User berhasil ditambahkan!');
+        return redirect()->route('dashboard.users.index')->with('message', 'User berhasil ditambahkan!');
     }
 
     /**
@@ -97,7 +97,7 @@ class UserController extends Controller
 
         $user->update($updateData);
 
-        return redirect()->route('users.index')->with('message', 'Data user berhasil diupdate!');
+        return redirect()->route('dashboard.users.index')->with('message', 'Data user berhasil diupdate!');
     }
 
     /**
@@ -113,6 +113,6 @@ class UserController extends Controller
 
         $user->delete();
 
-        return redirect()->route('users.index')->with('message', 'Data pengguna telah berhasil dihapus.');
+        return redirect()->route('dashboard.users.index')->with('message', 'Data pengguna telah berhasil dihapus.');
     }
 }
