@@ -32,11 +32,11 @@ export default function AuthenticatedLayout({ user, children }) {
     const navItems = user.role === 'Admin' 
         ? [
             { href: "/dashboard", icon: Home, label: "Dashboard" },
-            { href: "/dashboard/memberships", icon: User, label: "Tipe Membership" }, // Tambahan
-            { href: "/dashboard/categories", icon: BarChart, label: "Category" }, // Tambahan
-            { href: "/dashboard/videos", icon: Megaphone, label: "Video" }, // Tambahan
-            { href: "/dashboard/articles", icon: FileText, label: "Article" }, // Tambahan
-            { href: "/dashboard/users", icon: Users, label: "Daftar Pengguna" }
+            { href: "/dashboard/memberships", icon: User, label: "Tipe Membership" },
+            { href: "/dashboard/categories", icon: BarChart, label: "Category" },
+            { href: "/dashboard/videos", icon: Megaphone, label: "Video" },
+            { href: "/dashboard/articles", icon: FileText, label: "Article" },
+            { href: "/dashboard/users", icon: Users, label: "User" }
           ]
         : [
             { href: "/dashboard", icon: Home, label: "Dashboard" },
