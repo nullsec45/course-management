@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -11,18 +11,43 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash, Plus, UserCircle, BadgeCheck, CircleXIcon } from "lucide-react";
+import { useEffect } from "react";
+import Swal from 'sweetalert2'; 
 
 export default function Index({ auth, users }) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: flash.success,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+        if (flash.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: flash.error,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+    }, [flash]);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Manajemen Pengguna</h2>}
         >
-            <Head title="Daftar Pengguna" />
+            <Head title="List Pengguna" />
 
             <div className="py-2">
                 <div className="mb-8">
-                    <h1 className="text-4xl font-bold text-slate-900">Daftar Pengguna</h1>
+                    <h1 className="text-4xl font-bold text-slate-900">List Pengguna</h1>
                     <p className="text-slate-500 mt-1">Kelola data akun, peran, dan status membership pengguna.</p>
                 </div>
                 
@@ -84,10 +109,14 @@ export default function Index({ auth, users }) {
                                                 <div className="flex justify-end gap-2">
                                                     <Button 
                                                         size="sm" 
-                                                        asChild 
-                                                        className="h-8 bg-blue-600 text-white hover:bg-blue-700 border-none shadow-sm transition-colors"
+                                                        asChild
+                                                        disabled={item.role == 'Membership' || item.role == 'Non Membership'}
+                                                        className="h-8 bg-blue-600 text-white hover:bg-blue-700 border-none shadow-sm transition-colors disabled:pointer-events-none disabled:opacity-50"
                                                     >
-                                                        <Link href={`/dashboard/users/${item.id}/edit`}>
+                                                        <Link 
+                                                            href={`/dashboard/users/${item.id}/edit`}
+                                                            as="button"
+                                                        >
                                                             <Pencil className="w-3.5 h-3.5 mr-2" />
                                                             Edit
                                                         </Link>
@@ -125,7 +154,6 @@ export default function Index({ auth, users }) {
                     </CardContent>
                 </Card>
 
-                {/* Pagination Berwarna Biru */}
                 <div className="mt-8 flex flex-col items-center">
                     <div className="flex flex-wrap justify-center gap-2">
                         {users.links.map((link, index) => (

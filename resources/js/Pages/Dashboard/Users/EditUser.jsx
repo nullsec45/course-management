@@ -32,7 +32,7 @@ export default function EditUser({ auth, user, memberships }) {
                 <CardHeader>
                     <CardTitle className="font-headline text-3xl flex items-center gap-2">
                         <UserCheck className="text-blue-600 h-8 w-8" />
-                        Edit Pengguna: {user.name}
+                        Edit Pengguna
                     </CardTitle>
                     <CardDescription>Perbarui data akun, peran, atau paket membership pengguna.</CardDescription>
                 </CardHeader>
