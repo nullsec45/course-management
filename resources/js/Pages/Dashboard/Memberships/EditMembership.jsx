@@ -19,7 +19,7 @@ export default function EditMembership({ auth, membership }) {
 
     function onSubmit(e) {
         e.preventDefault();
-        put(route('memberships.update', membership.id));
+        put(route('dashboard.memberships.update', membership.id));
     }
 
     return (

@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -11,8 +11,33 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash, Plus, FileText } from "lucide-react";
+import { useEffect } from "react";
+import Swal from 'sweetalert2'; 
 
 export default function Index({ auth, memberships }) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: flash.success,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+        if (flash.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: flash.error,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+    }, [flash]);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -22,7 +47,7 @@ export default function Index({ auth, memberships }) {
 
             <div>
                 <div className="mb-8">
-                    <h1 className="text-4xl font-bold font-headline text-slate-900">Daftar Tipe Membership</h1>
+                    <h1 className="text-4xl font-bold font-headline text-slate-900">List Tipe Membership</h1>
                     <p className="text-muted-foreground">Kelola paket langganan untuk pengguna.</p>
                 </div>
                 

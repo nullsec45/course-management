@@ -5,7 +5,6 @@ import { Check, Zap, Crown, Rocket, ShieldCheck, ArrowRight } from 'lucide-react
 export default function ListMembership({ memberships }) {
     const { auth } = usePage().props;
     
-    // Fungsi untuk styling dinamis berdasarkan tipe membership
     const getPlanStyle = (name) => {
         const t = (name).toLowerCase(); 
 

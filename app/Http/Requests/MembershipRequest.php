@@ -22,10 +22,30 @@ class MembershipRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
             'article_limit' => 'nullable|integer|min:0',
             'video_limit' => 'nullable|integer|min:0',
+            'description' => 'required|string'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => 'Nama membership wajib diisi.',
+            'name.string'   => 'Nama harus berupa teks.',
+            'name.max'      => 'Nama maksimal 255 karakter.',
+            'price.required' => 'Harga wajib diisi.',
+            'price.numeric'  => 'Harga harus berupa angka.',
+            'price.min'      => 'Harga tidak boleh kurang dari 0.',
+            'price.max'      => 'Harga yang dimasukkan terlalu besar (maksimal 999.999.999.999).',
+            'article_limit.integer' => 'Limit artikel harus berupa angka bulat.',
+            'article_limit.min'     => 'Limit artikel minimal adalah 0.',
+            'video_limit.integer' => 'Limit video harus berupa angka bulat.',
+            'video_limit.min'     => 'Limit video minimal adalah 0.',
+            'description.required' => 'Deskripsi membership wajib diisi.',
+            'description.string'   => 'Deskripsi harus berupa teks.',
         ];
     }
 }
