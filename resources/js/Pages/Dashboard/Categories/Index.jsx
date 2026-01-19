@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import {
     Table,
@@ -11,8 +11,33 @@ import {
 } from "@/components/ui/table";
 import { Card, CardContent } from "@/components/ui/card";
 import { Pencil, Trash, Plus, Folder } from "lucide-react";
+import { useEffect } from "react";
+import Swal from 'sweetalert2'; 
 
 export default function Index({ auth, categories }) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: flash.success,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+        if (flash.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: flash.error,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+    }, [flash]);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -22,7 +47,7 @@ export default function Index({ auth, categories }) {
 
             <div>
                 <div className="mb-8">
-                    <h1 className="text-4xl font-bold font-headline">Daftar Kategori</h1>
+                    <h1 className="text-4xl font-bold font-headline">List Kategori</h1>
                     <p className="text-muted-foreground">Kelola kategori untuk konten video dan artikel.</p>
                 </div>
                 

@@ -27,7 +27,7 @@ export default function EditCategory({ auth, category }) {
                 <CardHeader>
                     <CardTitle className="font-headline text-3xl flex items-center gap-2">
                         <FolderEdit className="text-blue-600 h-8 w-8" />
-                        Edit Kategori: {category.name}
+                        Edit Kategori
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
