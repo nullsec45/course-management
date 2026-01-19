@@ -53,7 +53,7 @@ export default function EditArticle({ auth, article, categories }) {
                 <CardHeader>
                     <CardTitle className="font-headline text-3xl flex items-center gap-2">
                         <FileEdit className="text-blue-600 h-8 w-8" />
-                        Edit Artikel: {article.title}
+                        Edit Artikel
                     </CardTitle>
                     <CardDescription>Perbarui konten, kategori, atau status publikasi artikel Anda.</CardDescription>
                 </CardHeader>

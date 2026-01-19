@@ -28,7 +28,7 @@ class ArticleRequest extends FormRequest
         return [
             'title'       => ['required', 'string', 'max:255'],
             'content'     => ['required', 'string'],
-            'description' => ['nullable', 'string', 'max:500'],
+            'description' => ['required', 'string', 'max:500'],
             'category_id' => ['required', 'exists:categories,id'],
             'status'      => ['required', Rule::in(['draft', 'published', 'archieved'])],
             'author'      => ['nullable', 'string', 'max:100'],
@@ -37,7 +37,12 @@ class ArticleRequest extends FormRequest
                 'string',
                 Rule::unique('articles', 'slug')->ignore($articleId)
             ],
-            'thumbnail'   => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'thumbnail'   => [
+                $articleId ? 'nullable' : 'required',
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:2048'
+            ],
         ];
     }
 
@@ -46,12 +51,15 @@ class ArticleRequest extends FormRequest
         return [
             'title.required'       => 'Judul artikel wajib diisi.',
             'content.required'     => 'Isi konten artikel tidak boleh kosong.',
-            'category_id.required' => 'Silakan pilih kategori artikel.',
+            'category_id.required' => 'Kategori artikel tidak boleh kosong.',
             'category_id.exists'   => 'Kategori yang dipilih tidak valid.',
-            'status.in'            => 'Status harus berupa Draft atau Published.',
+            'status.required'      => 'Status tidak boleh kosong.',
+            'status.in'            => 'Status harus berupa draft, published atau archived.',
             'slug.unique'          => 'Judul ini sudah digunakan, silakan gunakan judul lain agar slug tetap unik.',
             'thumbnail.image'      => 'File harus berupa gambar.',
             'thumbnail.max'        => 'Ukuran gambar maksimal adalah 2MB.',
+            'description.required'  => 'Deskripsi tidak boleh kosong.',
+            'description.max'       => 'Deskripsi maksimal 500 karakter'
         ];
     }
 }

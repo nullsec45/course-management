@@ -10,7 +10,6 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-// Gunakan Request yang sesuai atau buat: php artisan make:request ArticleRequest
 use App\Http\Requests\ArticleRequest;
 
 class ArticleController extends Controller
@@ -25,9 +24,13 @@ class ArticleController extends Controller
         $user = Auth::user();
         $query = Article::with(['media', 'category'])->latest();
 
-        if ($user->role === 'Admin') {
+        if ($user->role === 'Admin' || $user->role == 'Author') {
+            if ($user->role == 'Author') {
+                $query->where('author', $user->id);
+            }
             $articles = $query->paginate(5);
         } else if ($user->membership) {
+            $query->where('status', 'published');
             $totalAllowed = (int) $user->membership->video_limit;
 
 
@@ -158,6 +161,11 @@ class ArticleController extends Controller
 
         try {
             $article = Article::findOrFail($id);
+
+            if (Auth::user()->id !== $article->author) {
+                abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+            }
+
             $data = $request->validated();
             $data['slug'] = Str::slug($request->title);
 
@@ -206,6 +214,10 @@ class ArticleController extends Controller
         DB::beginTransaction();
         try {
             $article = Article::findOrFail($id);
+
+            if (Auth::user()->id !== $article->author) {
+                abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+            }
 
             $media = $article->media->first();
             if ($media) {

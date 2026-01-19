@@ -110,10 +110,10 @@ export default function CreateArticle({ auth, categories }) {
                             </div>
 
                             <div className="space-y-2">
-                                <Label htmlFor="description">Deskripsi Singkat</Label>
+                                <Label htmlFor="description">Deskripsi</Label>
                                <Textarea 
                                     id="description"
-                                    placeholder="Tuliskan ringkasan artikel di sini (maks. 255 karakter)..." 
+                                    placeholder="Tuliskan ringkasan artikel di sini (maks. 500 karakter)..." 
                                     rows={3}
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
@@ -184,7 +184,7 @@ export default function CreateArticle({ auth, categories }) {
                                 className="bg-blue-600 hover:bg-blue-700 text-white px-8"
                             >
                                 {processing ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Save className="mr-2 h-4 w-4" />}
-                                Simpan Artikel
+                                Simpan
                             </Button>
                         </div>
                     </form>

@@ -1,10 +1,35 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Plus, Clock, FileText, Pencil, Trash2 } from "lucide-react";
+import Swal from 'sweetalert2'; 
+import { useEffect } from "react";
 
 export default function Index({ auth, articles }) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: flash.success,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+        if (flash.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: flash.error,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+    }, [flash]);
+
     const truncateText = (text, length) => {
         if (!text) return "";
         return text.length > length ? text.substring(0, length) + "...." : text;
@@ -15,7 +40,7 @@ export default function Index({ auth, articles }) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard - Artikel</h2>}
         >
-            <Head title="Daftar Artikel" />
+            <Head title="List Artikel" />
 
             <div className="max-w-7xl mx-auto py-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -27,7 +52,7 @@ export default function Index({ auth, articles }) {
                                 : `Menampilkan artikel pilihan untuk paket ${auth.user.membership?.type || 'Anda'}.`}
                         </p>
                     </div>
-                    {auth.user.role === 'Admin' && (
+                    {auth.user.role === 'Admin' || auth.user.role === 'Author' && (
                         <Button asChild className="bg-blue-600 hover:bg-blue-700 shadow-sm">
                             <Link href="/dashboard/articles/create">
                                 <Plus className="mr-2 h-4 w-4" /> Tambah Artikel
@@ -81,7 +106,7 @@ export default function Index({ auth, articles }) {
                                             </Link>
                                         </Button>
                                         
-                                        {auth.user.role === 'Admin' && (
+                                        {auth.user.role === 'Admin' || auth.user.role === 'Author' && (
                                             <div className="flex gap-2">
                                                 <Button variant="outline" size="icon" className="h-8 w-8 border-slate-200 hover:bg-slate-100" asChild title="Edit">
                                                     <Link href={`/dashboard/articles/${article.id}/edit`}>
