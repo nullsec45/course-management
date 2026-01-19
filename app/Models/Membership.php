@@ -17,7 +17,7 @@ class Membership extends Model
     public $incrementing = false;
 
     protected $fillable = [
-        'type',
+        'name',
         'price',
         'article_limit',
         'video_limit',
