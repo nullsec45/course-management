@@ -15,10 +15,9 @@ class RoleMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
-            // Jika tidak sesuai, arahkan ke halaman lain atau beri error 403
+        if (!Auth::check() || !in_array(Auth::user()->role, $roles)) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
 

@@ -76,7 +76,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/{id}/show', 'show')->name('show');
 
-                Route::middleware('role:Admin')->group(function () {
+                Route::middleware('role:Admin,Author')->group(function () {
                     Route::get('/create', 'create')->name('create');
                     Route::post('/store', 'store')->name('store');
                     Route::get('/{id}/edit', 'edit')->name('edit');
@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', 'index')->name('index');
                 Route::get('/{id}/show', 'show')->name('show');
 
-                Route::middleware('role:Admin')->group(function () {
+                Route::middleware('role:Admin,Author')->group(function () {
                     Route::get('/create', 'create')->name('create');
                     Route::post('/store', 'store')->name('store');
                     Route::get('/{id}/edit', 'edit')->name('edit');
