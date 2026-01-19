@@ -1,59 +1,206 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://laravel.com" target="_blank">
+    <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+  </a>
 </p>
 
-## About Laravel
+<p align="center">
+  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Laravel Version"></a>
+  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
+  <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+</p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Course Management System
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Course Management System adalah aplikasi berbasis web yang digunakan untuk mengelola kursus, materi pembelajaran, serta autentikasi pengguna menggunakan OAuth (Google & Facebook). Aplikasi ini dibangun dengan **Laravel + Inertia + React** untuk memberikan pengalaman Single Page Application (SPA) yang modern, cepat, dan scalable.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## 🚀 Fitur Utama
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+* Manajemen Course (CRUD)
+* Manajemen User & Autentikasi
+* Login dengan Google & Facebook (Social Login)
+* SPA menggunakan Inertia.js + React
+* UI modern menggunakan TailwindCSS & Shadcn UI
+* SweetAlert2 untuk notifikasi interaktif
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🛠️ Tech Stack
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### Backend
 
-### Premium Partners
+* **Bahasa Pemrograman**: PHP 8+
+* **Framework**: Laravel 12+
+* **Library**:
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+  * Inertia Laravel v2+
+  * Laravel Socialite v5+
 
-## Contributing
+### Frontend
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* **Framework**: ReactJS 19+
+* **Library**:
 
-## Code of Conduct
+  * InertiaJS v2+
+  * Axios v1.11.0
+  * SweetAlert2 v11+
+  * Shadcn UI
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Styling
 
-## Security Vulnerabilities
+* **CSS Framework**: TailwindCSS v4+
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Database
 
-## License
+* **Database**: MySQL
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## ⚙️ Instalasi & Setup Aplikasi
+
+### 1. Clone Repository
+
+```bash
+git clone <repository-url>
+cd course-management
+```
+
+### 2. Install Dependency Backend
+
+```bash
+composer install
+```
+
+### 3. Install Dependency Frontend
+
+```bash
+npm install
+```
+
+### 4. Konfigurasi Environment
+
+Salin file `.env.example` menjadi `.env`
+
+```bash
+cp .env.example .env
+```
+
+#### Konfigurasi Database
+
+Sesuaikan konfigurasi database pada file `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=course_management
+DB_USERNAME=<DB_USERNAME>
+DB_PASSWORD=<DB_PASSWORD>
+```
+
+Pastikan database **course_management** sudah dibuat di MySQL.
+
+#### Konfigurasi OAuth (Google & Facebook)
+
+Digunakan untuk login menggunakan Google dan Facebook.
+
+**Facebook OAuth**
+
+```env
+FACEBOOK_CLIENT_ID=your_facebook_client_id
+FACEBOOK_CLIENT_SECRET=your_facebook_client_secret
+FACEBOOK_CLIENT_REDIRECT=http://localhost:8000/auth/facebook/callback
+```
+
+**Google OAuth**
+
+```env
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+GOOGLE_CLIENT_REDIRECT=http://localhost:8000/auth/google/callback
+```
+
+> Pastikan URL redirect sesuai dengan yang terdaftar di Google Console & Facebook Developer Dashboard.
+
+---
+
+### 5. Generate Application Key
+
+```bash
+php artisan key:generate
+```
+
+### 6. Migrasi & Seeder Database
+
+```bash
+php artisan migrate --seed
+```
+
+### 7. Menjalankan Aplikasi
+
+#### Jalankan Backend (Laravel)
+
+```bash
+php artisan serve --host=0.0.0.0 --port=8000
+```
+
+#### Jalankan Frontend (Vite)
+
+```bash
+npm run dev
+```
+
+Aplikasi dapat diakses melalui:
+
+```
+http://localhost:8000
+```
+
+---
+
+## 📁 Environment Default (Contoh)
+
+```env
+APP_NAME=Laravel
+APP_ENV=local
+APP_DEBUG=true
+APP_URL=http://localhost
+
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=course_management
+DB_USERNAME=<DB_USERNAME>
+DB_PASSWORD=<DB_PASSWORD>
+
+SESSION_DRIVER=database
+CACHE_STORE=database
+QUEUE_CONNECTION=database
+```
+
+---
+
+## 📚 Dokumentasi Tambahan
+
+* Laravel Documentation: [https://laravel.com/docs](https://laravel.com/docs)
+* InertiaJS: [https://inertiajs.com](https://inertiajs.com)
+* ReactJS: [https://react.dev](https://react.dev)
+* TailwindCSS: [https://tailwindcss.com](https://tailwindcss.com)
+
+---
+
+## 🤝 Kontribusi
+
+Kontribusi sangat terbuka. Silakan buat pull request atau issue untuk perbaikan dan pengembangan fitur.
+
+---
+
+## 📄 Lisensi
+
+Aplikasi ini menggunakan lisensi **MIT**.
+
+---
+
+Dibuat dengan ❤️ menggunakan Laravel & React
