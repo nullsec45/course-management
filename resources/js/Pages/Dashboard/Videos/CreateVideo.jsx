@@ -168,6 +168,7 @@ export default function CreateVideo({ auth, categories }) {
                                     value={data.description}
                                     onChange={(e) => setData('description', e.target.value)}
                                 />
+                                <InputError message={errors.description} />
                             </div>
                             {thumbPreview && (
                                 <div className="relative rounded-lg border overflow-hidden h-40 bg-slate-50">

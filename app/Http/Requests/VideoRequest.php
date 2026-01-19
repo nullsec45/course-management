@@ -22,12 +22,13 @@ class VideoRequest extends FormRequest
      */
     public function rules(): array
     {
-        $videoId = $this->route('video') ?? null;
+        $videoId = $this->route()->parameters['id'] ?? null;
 
         return [
             'title'       => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
+            'description' => ['required', 'string', 'max:500'],
             'status'      => ['required', Rule::in(['draft', 'published', 'archived'])],
             'author'      => ['required', 'string'],
             'slug'        => [
@@ -35,15 +36,12 @@ class VideoRequest extends FormRequest
                 'string',
                 Rule::unique('videos', 'slug')->ignore($videoId)
             ],
-
-            // Thumbnail: Wajib saat baru (store), opsional saat update
             'thumbnail'   => [
                 $videoId ? 'nullable' : 'required',
                 'image',
-                'mimes:jpg,jpeg,png',
+                'mimes:jpg,jpeg,png,webp',
                 'max:2048'
             ],
-
             'video_file'  => [
                 $videoId ? 'nullable' : 'required',
                 'file',
@@ -56,13 +54,18 @@ class VideoRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required'       => 'Judul video tidak boleh kosong.',
-            'video_file.required'  => 'File video wajib diunggah.',
-            'video_file.mimetypes' => 'Format video harus berupa MP4 atau MKV.',
-            'thumbnail.required'   => 'Gambar sampul (thumbnail) wajib diunggah.',
-            'thumbnail.max'        => 'Ukuran thumbnail maksimal 2MB.',
-            'video_file.max'       => 'Ukuran file video terlalu besar (Maksimal 100MB).',
-            'category_id.exists'   => 'Kategori yang dipilih tidak terdaftar.',
+            'title.required'        => 'Judul video tidak boleh kosong.',
+            'category_id.required'  => 'Kategori video tidak boleh kosong.',
+            'category_id.exists'    => 'Kategori yang dipilih tidak terdaftar.',
+            'status.required'       => 'Status tidak boleh kosong.',
+            'status.in'             => 'Status harus berupa draft, published atau archived.',
+            'video_file.required'   => 'File video wajib diunggah.',
+            'video_file.mimetypes'  => 'Format video harus berupa MP4 atau MKV.',
+            'thumbnail.required'    => 'Gambar sampul (thumbnail) wajib diunggah.',
+            'thumbnail.max'         => 'Ukuran thumbnail maksimal 2MB.',
+            'thumbnail.mimetypes'   => 'Format video harus berupa JPG,JPEG,PNG,atau WEBP.',
+            'description.required'  => 'Deskripsi tidak boleh kosong.',
+            'description.max'       => 'Deskripsi maksimal 500 karakter'
         ];
     }
 }

@@ -1,10 +1,35 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, usePage } from "@inertiajs/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Plus, Clock, Video, Pencil, Trash2, PlayCircle } from "lucide-react";
+import { useEffect } from "react";
+import Swal from 'sweetalert2'; 
 
 export default function Index({ auth, videos }) {
+    const { flash } = usePage().props;
+
+    useEffect(() => {
+        if (flash.success) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: flash.success,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+        if (flash.error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal!',
+                text: flash.error,
+                timer: 3000,
+                showConfirmButton: false
+            });
+        }
+    }, [flash]);
+
     const truncateText = (text, length) => {
         if (!text) return "";
         return text.length > length ? text.substring(0, length) + "...." : text;
@@ -15,19 +40,19 @@ export default function Index({ auth, videos }) {
             user={auth.user}
             header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Dashboard - Video</h2>}
         >
-            <Head title="Daftar Video" />
+            <Head title="List Video" />
 
             <div className="max-w-7xl mx-auto py-6">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                     <div>
-                        <h1 className="text-4xl font-bold font-headline text-slate-900">Daftar Video</h1>
+                        <h1 className="text-4xl font-bold font-headline text-slate-900">List Video</h1>
                         <p className="text-muted-foreground mt-1">
                             {auth.user.role === 'Admin' 
                                 ? 'Kelola semua konten video Anda.' 
                                 : `Akses video eksklusif untuk member ${auth.user.membership?.type || 'Bronze'}.`}
                         </p>    
                     </div>
-                    {auth.user.role === 'Admin' && (
+                    {auth.user.role === 'Admin' || auth.user.role === 'Author' && (
                         <Button asChild className="bg-blue-600 hover:bg-blue-700 shadow-sm">
                             <Link href="/dashboard/videos/create">
                                 <Plus className="mr-2 h-4 w-4" /> Tambah Video
@@ -81,7 +106,7 @@ export default function Index({ auth, videos }) {
                                             </Link>
                                         </Button>
                                         
-                                        {auth.user.role === 'Admin' && (
+                                        {auth.user.role === 'Admin' || auth.user.role === 'Author' && (
                                             <div className="flex gap-2">
                                                 <Button variant="outline" size="icon" className="h-8 w-8" asChild>
                                                     <Link href={`/dashboard/videos/${vid.id}/edit`}>

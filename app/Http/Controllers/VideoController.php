@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\VideoRequest;
 use Illuminate\Http\Request;
 use App\Models\Video;
 use App\Models\Media;
@@ -23,9 +24,15 @@ class VideoController extends Controller
         $user = Auth::user();
         $query = Video::with(['media', 'category'])->latest();
 
-        if ($user->role === 'Admin') {
+
+        if ($user->role === 'Admin' || $user->role === 'Author') {
+            if ($user->role == 'Author') {
+                $query->where('author', $user->id);
+            }
             $videos = $query->paginate(5);
         } else  if ($user->membership) {
+            $query->where('status', 'published');
+
             $totalAllowed = (int) $user->membership->video_limit;
 
             if (!is_null($totalAllowed) && (int)$totalAllowed > 0) {
@@ -49,6 +56,7 @@ class VideoController extends Controller
             $videos = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 10);
         }
 
+
         return Inertia::render('Dashboard/Videos/Index', [
             'videos' => $videos
         ]);
@@ -68,7 +76,7 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(VideoRequest $request)
     {
         DB::beginTransaction();
         $pathThumbnail = 'uploads/videos/thumbnails';
@@ -167,7 +175,7 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(VideoRequest $request, string $id)
     {
         DB::beginTransaction();
         $pathThumbnail = 'uploads/videos/thumbnails';
@@ -178,6 +186,10 @@ class VideoController extends Controller
 
         try {
             $video = Video::with('media')->findOrFail($id);
+
+            if (Auth::user()->id !== $video->author) {
+                abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+            }
 
             $video->update([
                 'title' => $request->title,
@@ -267,6 +279,11 @@ class VideoController extends Controller
         DB::beginTransaction();
         try {
             $video = Video::findOrFail($id);
+
+            if (Auth::user()->id !== $video->author) {
+                abort(403, 'Anda tidak memiliki akses ke halaman ini.');
+            }
+
             $media = $video->media->first();
 
             if ($media) {

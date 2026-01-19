@@ -180,7 +180,7 @@ export default function EditVideo({ auth, video, categories }) {
                         </div>
 
                         <div className="flex justify-end gap-4 pt-6 border-t border-slate-100">
-                            <Button variant="outline" className="text-slate-600" asChild>
+                            <Button variant="outline" className="text-red-500 border-red-200 hover:bg-red-50 hover:text-red-600 transition-colors" asChild>
                                 <Link href={route('dashboard.videos.index')}>
                                     <CircleXIcon className="mr-2 h-4 w-4" /> Batal
                                 </Link>
